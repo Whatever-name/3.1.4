@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Loop</title>
+</head>
+<body>
+<h1>Here's Users Table</h1>
+<table border="1">
+    <tr>
+        <th>Id</th>
+        <th>Age</th>
+        <th>Name</th>
+        <th>Department</th>
+        <th>Roles</th>
+        <th>Edit User</th>
+        <th>Delete User</th>
+    </tr>
+    <tr th:each="user:${allUsers}">
+        <td th:utext="${user.getId()}" ></td>
+        <td th:utext="${user.getAge()}" ></td>
+        <td th:utext="${user.getName()}"></td>
+        <td th:utext="${user.getDepartment()}"></td>
+        <td th:utext="${user.getRoles()}"></td>
+        <td> <form th:method="GET" th:action="@{/admin/edit/{id}(id=${user.getId()})}">
+        <input type="submit" value="edit person">
+    </form> </td>
+        <td> <form th:method="DELETE" th:action="@{/admin/delete/{id}(id=${user.getId()})}">
+            <input type="submit" value="delete">
+        </form> </td>
+    </tr>
+</table>
+<br><br>
+<form th:method="GET" th:action="@{/admin/add}">
+    <input type="submit" value="Add new person">
+</form>
+<br><br>
+<form th:action = "@{/logout}">
+    <input type = "submit" value = "Logout">
+</form>
+
+
+</ul>
+</body>
+</html>

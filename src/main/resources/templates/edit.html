@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Loop</title>
+</head>
+<body>
+<h1>Edit user's details</h1>
+
+</tr>
+</table>
+<br><br>
+<form th:method="PATCH", th:action="@{/admin/{id}(id=${updatedUser.getId()})}" th:object="${updatedUser}">
+    <label for = "age">"Enter age"</label>
+    <input type = "number" th:field = "*{age}", id = age>
+    <label for = "name">"Enter name"</label>
+    <input type = "text" th:field = "*{name}", id = name>
+    <label for = "department">"Enter department"</label>
+    <input type = "text" th:field = "*{department}", id = department>
+    <label for = "UserName">"Enter userName"</label>
+    <input type = "text" th:field = "*{userName}", id = userName>
+    <label for = "password">"Enter password"</label>
+    <input type = "text" th:field = "*{password}", id = password>
+    <th:block th:each="role: ${roles}">
+        <input type="checkbox" th:field="*{roles}"
+               th:text="${role.name}" th:value="${role.id}" class="m-2" />
+    </th:block>
+    <input type = "submit" value = "Edit">
+</form>
+<br><br>
+<form th:action = "@{/logout}">
+    <input type = "submit" value = "Logout">
+</form>
+
+</ul>
+</body>
