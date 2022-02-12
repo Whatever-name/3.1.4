@@ -44,7 +44,6 @@ public class UserService {
         HashSet<Role> userSet = new HashSet<>();
         userSet.add(userRole);
 
-
         User admin = new User(26, "admin", "Vitalya", "IT", "admin");
         admin.setRoles(adminSet);
         User normalUser = new User(33, "user", "Vasiliy", "HR", "user");
