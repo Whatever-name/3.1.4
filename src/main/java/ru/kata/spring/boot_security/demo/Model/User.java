@@ -13,7 +13,7 @@ public class User implements UserDetails {
 
     @Id
     @Column(name = "user_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
 
     @Column
@@ -34,7 +34,7 @@ public class User implements UserDetails {
     private String password;
 
     @Column
-    @ManyToMany(cascade = {CascadeType.REFRESH})
+    @ManyToMany(cascade = {CascadeType.REFRESH,CascadeType.REMOVE})
     @JoinTable(joinColumns= {@JoinColumn(name="user_id")},
             inverseJoinColumns= {@JoinColumn(name="role_id")})
     private Set<Role> roles;
@@ -42,11 +42,12 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(int age, String userName, String name, String department) {
+    public User(int age, @Size(min = 4, max = 15) String userName, String name, String department, @Size(min = 5, max = 20) String password) {
         this.age = age;
         this.userName = userName;
         this.name = name;
         this.department = department;
+        this.password = password;
     }
 
     public long getId() {
