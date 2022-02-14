@@ -11,7 +11,7 @@
         <th>Id</th>
         <th>Age</th>
         <th>Name</th>
-        <th>Department</th>
+        <th>Lastname</th>
         <th>Roles</th>
         <th>Edit User</th>
         <th>Delete User</th>
@@ -19,8 +19,8 @@
     <tr th:each="user:${allUsers}">
         <td th:utext="${user.getId()}" ></td>
         <td th:utext="${user.getAge()}" ></td>
-        <td th:utext="${user.getName()}"></td>
-        <td th:utext="${user.getDepartment()}"></td>
+        <td th:utext="${user.getFirstName()}"></td>
+        <td th:utext="${user.getLastName()}"></td>
         <td th:utext="${user.getRoles()}"></td>
         <td> <form th:method="GET" th:action="@{/admin/edit/{id}(id=${user.getId()})}">
         <input type="submit" value="edit person">

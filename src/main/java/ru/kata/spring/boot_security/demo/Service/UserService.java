@@ -33,7 +33,7 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    @PostConstruct
+   /* @PostConstruct
     private void postConstruct() {
         Role adminRole = new Role("ROLE_ADMIN");
         Role userRole = new Role("ROLE_USER");
@@ -44,13 +44,13 @@ public class UserService {
         HashSet<Role> userSet = new HashSet<>();
         userSet.add(userRole);
 
-        User admin = new User(26, "admin", "Vitalya", "IT", "admin");
+        User admin = new User("Viktor", "Gromyako", 45, "viktor@gmail.com", "admin");
         admin.setRoles(adminSet);
-        User normalUser = new User(33, "user", "Vasiliy", "HR", "user");
+        User normalUser = new User("Vasiliy", "Mutniy", 33, "vasiliy@gmail.com", "user");
         normalUser.setRoles(userSet);
         addUser(admin);
         addUser(normalUser);
-    }
+    }*/
 
 
     public List<User> getUsers() {
