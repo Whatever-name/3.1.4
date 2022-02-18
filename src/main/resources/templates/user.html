@@ -11,7 +11,7 @@
    <span class="navbar-text text-white">
        <strong> <td th:text="${userById.getUsername()}"></td> </strong>
      with roles:
-        <td th:each="role:${userById.getRoles()}" th:text="${role.getName()}+' '"></td>
+        <td th:each="role:${userById.getRoles()}" th:text="${role.toString()}+' '"></td>
    </span>
     <a class = "nav-link text-muted" th:href="@{/logout}">Logout </a>
 </nav>
@@ -69,7 +69,7 @@
                         <td th:utext="${userById.getLastName()}" ></td>
                         <td th:utext="${userById.getAge()}" ></td>
                         <td th:utext="${userById.getEmail()}" ></td>
-                        <td th:each="role: ${userById.getRoles()}" th:utext="${role.getName()}" ></td>
+                        <td> <a th:each="role: ${userById.getRoles()}" th:utext="${role.toString()}" > </a></td>
                         </tr>
                         </tbody>
                         <br>
