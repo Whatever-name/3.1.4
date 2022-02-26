@@ -32,7 +32,7 @@ public class UserService {
 
     @Autowired
     UserRepository userRepository;
-
+/*
     @PostConstruct
     private void postConstruct() {
         Role adminRole = new Role("ROLE_ADMIN");
@@ -50,7 +50,9 @@ public class UserService {
         normalUser.setRoles(userSet);
         addUser(admin);
         addUser(normalUser);
-    }
+        }
+        */
+
 
 
     public List<User> getUsers() {

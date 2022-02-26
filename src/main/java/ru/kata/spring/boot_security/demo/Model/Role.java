@@ -1,6 +1,8 @@
 package ru.kata.spring.boot_security.demo.Model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import net.bytebuddy.build.ToStringPlugin;
 import org.springframework.security.core.GrantedAuthority;
 import javax.persistence.*;
 import java.util.Set;
@@ -16,7 +18,8 @@ public class Role implements GrantedAuthority {
 
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
+    @JsonBackReference
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "roles")
     private Set <User> users;
 
     @Override

@@ -2,6 +2,7 @@ package ru.kata.spring.boot_security.demo.Model;
 
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -36,7 +37,8 @@ public class User implements UserDetails {
     private String password;
 
     @Column
-    @ManyToMany(cascade = { CascadeType.REFRESH })
+    @JsonManagedReference
+    @ManyToMany(cascade = {CascadeType.REFRESH})
     @JoinTable(joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<Role> roles;

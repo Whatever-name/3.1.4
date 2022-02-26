@@ -2,6 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
     <title>Spring Security Example</title>
 </head>
 <body>
@@ -9,9 +13,9 @@
 <! Панелька вверху>
 <nav class="navbar navbar-dark bg-dark">
    <span class="navbar-text text-white">
-       <strong> <td th:text="${userById.getUsername()}"></td> </strong>
+       <strong> <span id ="current_user"></span> </strong>
      with roles:
-        <td th:each="role:${userById.getRoles()}" th:text="${role.toString()}+' '"></td>
+        <span id="roles"></span>
    </span>
     <a class = "nav-link text-muted" th:href="@{/logout}">Logout </a>
 </nav>
@@ -64,12 +68,12 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <td th:utext="${userById.getId()}" ></td>
-                        <td th:utext="${userById.getFirstName()}"></td>
-                        <td th:utext="${userById.getLastName()}" ></td>
-                        <td th:utext="${userById.getAge()}" ></td>
-                        <td th:utext="${userById.getEmail()}" ></td>
-                        <td> <a th:each="role: ${userById.getRoles()}" th:utext="${role.toString()}" > </a></td>
+                        <td id= "id" ></td>
+                        <td id= "firstname"></td>
+                        <td id = "lastname"></td>
+                        <td id = "age" ></td>
+                        <td id = "email" ></td>
+                        <td id = "rolesTable"></td>
                         </tr>
                         </tbody>
                         <br>
@@ -80,5 +84,7 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="/userTab.js"></script>
+<script type="text/javascript" src="/roles.js"></script>
 </body>
 </html>
