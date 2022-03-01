@@ -10,8 +10,10 @@ import ru.kata.spring.boot_security.demo.ExceptionHandling.NoSuchUserException;
 import ru.kata.spring.boot_security.demo.ExceptionHandling.WrongUserData;
 import ru.kata.spring.boot_security.demo.Model.Role;
 import ru.kata.spring.boot_security.demo.Model.User;
+import ru.kata.spring.boot_security.demo.Service.RoleService;
 import ru.kata.spring.boot_security.demo.Service.UserService;
 
+import java.util.HashSet;
 import java.util.List;
 
 @RestController
@@ -21,8 +23,11 @@ public class RestAdminController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    RoleService roleService;
+
     @GetMapping("/users")
-    public List<User> getUsers(){
+    public List<User> getUsers() {
         return userService.getUsers();
     }
 
@@ -36,23 +41,34 @@ public class RestAdminController {
     }
 
     @ExceptionHandler
-    public ResponseEntity<WrongUserData> handleNoSuchUserException(NoSuchUserException exception){
+    public ResponseEntity<WrongUserData> handleNoSuchUserException(NoSuchUserException exception) {
         WrongUserData data = new WrongUserData();
         data.setInfo(exception.getMessage());
         return new ResponseEntity<>(data, HttpStatus.NOT_FOUND);
     }
 
     @PostMapping
-    public ResponseEntity<User> addUser(@RequestBody User user){
+    public ResponseEntity<User> addUser(@RequestBody User user) {
         userService.addUser(user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<User> patchUser(@RequestBody User user){
+    public ResponseEntity<User> patchUser(@RequestBody User user, @RequestParam(required = false, name = "selectedRoles") String[] selectedRoles) {
+        HashSet<Role> editRoles = new HashSet<>();
+        for (String s : selectedRoles) {
+            if (s.contains("ADMIN")) {
+                editRoles.add(roleService.getRoleByName("ROLE_ADMIN"));
+            }
+            if (s.contains("USER")) {
+                editRoles.add(roleService.getRoleByName("ROLE_USER"));
+            }
+        }
+        user.setRoles(editRoles);
         userService.editUser(user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
+
 
     @DeleteMapping ("/{id}")
     public void delete(@PathVariable("id") Long id) {

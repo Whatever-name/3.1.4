@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import net.bytebuddy.build.ToStringPlugin;
 import org.springframework.security.core.GrantedAuthority;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity

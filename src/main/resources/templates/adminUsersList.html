@@ -3,7 +3,7 @@
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Spring Security Example</title>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
@@ -58,81 +58,84 @@
                         <span class="navbar-text text-dark text-left font-weight-bold">
                         All users
                         </span>
-                    </nav>
-                </div>
-            </div>
-            <div class = "row">
-                <div class = "col-11 mx-auto border bg-white">
+                            </nav>
+                        </div>
+                    </div>
+                    <div class = "row">
+                        <div class = "col-11 mx-auto border bg-white">
 
-                    <!Табличка>
-                    <table class="table table-striped bg-white">
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Age</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                        </tr>
-                        </thead>
-                        <tbody id="data">
-                        </tbody>
+                            <!Табличка>
+                            <table class="table table-striped bg-white" id="data">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Age</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
 
 
                             <! Модалка эдита>
-                            <div class = "modal fade" th:id = "${'edit' + user.getId()}" tabindex="-1">
-                                <form th:action="@{/admin/{id}(id=${user.getId()})}"
-                                      th:object="${user}" th:method="patch">
-                                <div class = "modal-dialog">
-                                    <div class = "modal-content">
-                                        <div class = "modal-header">
-                                            <h5>Edit user</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"> </button>
-                                            <span aria-hidden="true">&times;</span>
-                                        </div>
-                                        <div class ="modal-body mx-auto text-center">
-                                                <div class = "form-group">
-                                                    <strong><label for = "user.id">Id</label> </strong>
-                                                    <input type = "number" class="form-control" th:value = "${user.getId()}" id="user.id" name="id" readonly>
+                            <div class = "editForm">
+                                <form th:action="@{/api/id}" method="PATCH" id="body">
+                                    <div class = "modal fade" id="editModal"  tabindex="-1">
+                                        <div class = "modal-dialog">
+                                            <div class = "modal-content">
+                                                <div class = "modal-header">
+                                                    <h5>Edit user</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"> </button>
+                                                    <span aria-hidden="true">&times;</span>
                                                 </div>
-                                                <div class = "form-group">
-                                                    <strong><label for = "user.FirstName">First Name </label> </strong>
-                                                    <input type = "text" class="form-control" th:value = "${user.getFirstName()}" id="user.FirstName" name="firstName">
+                                                <div class ="modal-body mx-auto text-center">
+                                                    <div class = "form-group">
+                                                        <strong><label for = "idEdit">Id</label> </strong>
+                                                        <input type = "number" class="form-control"  id="idEdit" name="id" readonly>
+                                                    </div>
+                                                    <div class = "form-group">
+                                                        <strong><label for = "firstnameEdit">First Name </label> </strong>
+                                                        <input type = "text" class="form-control"  id="firstnameEdit" name="firstName">
+                                                    </div>
+                                                    <div class = "form-group">
+                                                        <strong><label for = "lastnameEdit">Last Name </label> </strong>
+                                                        <input type = "text" class="form-control"  id="lastnameEdit" name="lastName">
+                                                    </div>
+                                                    <div class ="form-group">
+                                                        <strong><label for = "ageEdit">Age</label> </strong>
+                                                        <input type = "number" class="form-control"  id="ageEdit" name="ageEdit">
+                                                    </div>
+                                                    <div class = "form-group">
+                                                        <strong><label for = "emailEdit">Email </label> </strong>
+                                                        <input type = "text" class="form-control"  id="emailEdit" name="emailEdit">
+                                                    </div>
+                                                    <div class = "form-group">
+                                                        <strong><label for = "passwordEdit">Password </label> </strong>
+                                                        <input type = "password" required class="form-control" placeholder="" id="passwordEdit" name="password">
+                                                    </div>
+                                                    <div class = "form-group ">
+                                                        <strong><label>Roles</label> </strong>
+                                                        <select class="custom-select" id = "ROLES" name = "roles" multiple size="2">
+                                                            <option>USER</option>
+                                                            <option>ADMIN</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                                <div class = "form-group">
-                                                    <strong><label for = "user.LastName">Last Name </label> </strong>
-                                                    <input type = "text" class="form-control" th:value = "${user.getLastName()}" id="user.LastName" name="lastName">
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="editClose">Close</button>
+                                                    <button type="submit" class="btn btn-primary editSuccess">Edit</button>
                                                 </div>
-                                                <div class ="form-group">
-                                                    <strong><label for = "user.Age">Age</label> </strong>
-                                                    <input type = "number" class="form-control" th:value = "${user.getAge()}" id="user.Age" name="age">
-                                                </div>
-                                                <div class = "form-group">
-                                                    <strong><label for = "user.Email">Email </label> </strong>
-                                                    <input type = "text" class="form-control" th:value = "${user.getEmail()}" id="user.Email" name="email">
-                                               </div>
-                                                <div class = "form-group">
-                                                    <strong><label for = "user.Password">Password </label> </strong>
-                                                    <input type = "password" required class="form-control" placeholder="" id="user.Password" name="password">
-                                                </div>
-                                                <div class = "form-group ">
-                                                    <strong><label>Roles</label> </strong>
-                                                <select class="custom-select" id = "ROLES" name = "roles" multiple size="2">
-                                                    <option th:object="${role_admin}" th:text="${role_admin.name}" th:value="${role_admin.id}" ></option>
-                                                    <option th:object="${role_user}" th:text="${role_user.name}" th:value="${role_user.id}" ></option>
-                                                </select>
-                                                </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Edit</button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
                                 </form>
+
                             </div>
                             <td> <button type="button" class="btn btn-danger"
                                          th:data-target ="${'#delete' + user.getId()}" data-toggle="modal" >Delete
@@ -185,13 +188,13 @@
                                     </div>
                                 </form>
                             </div>
-                        </tr>
-                        </tbody>
-                        <br>
-                    </table>
-                    <br>
-                </div>
-                </div>
+                            </tr>
+                            </tbody>
+                            <br>
+                            </table>
+                            <br>
+                        </div>
+                    </div>
                 </div>
 
                 <!add user>
@@ -206,61 +209,79 @@
                         </div>
                     </div>
                     <div class = "row">
-                    <div class = "col-11 mx-auto text-center border align-items-center bg-white">
-                        <form th:action="@{/admin/add}"
-                              th:object="${addUser}" method="post">
+                        <div class = "col-11 mx-auto text-center border align-items-center bg-white">
+                            <form th:action="@{/admin/add}"
+                                  th:object="${addUser}" method="post">
 
-                            <div class = "form-group ">
-                                <div class = "col-3 mx-auto">
-                                <strong><label for = "userA.FirstName">First Name </label> </strong>
-                                <input type = "text" class="form-control" th:field = "*{firstName}" placeholder="First name" id="userA.FirstName">
+                                <div class = "form-group ">
+                                    <div class = "col-3 mx-auto">
+                                        <strong><label for = "userA.FirstName">First Name </label> </strong>
+                                        <input type = "text" class="form-control" th:field = "*{firstName}" placeholder="First name" id="userA.FirstName">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class = "form-group">
-                                <div class = "col-3 mx-auto">
-                                <strong><label for = "userA.LastName">Last Name </label> </strong>
-                                <input type = "text" class="form-control" th:field = "*{lastName}" placeholder="Last name" id="userA.LastName">
+                                <div class = "form-group">
+                                    <div class = "col-3 mx-auto">
+                                        <strong><label for = "userA.LastName">Last Name </label> </strong>
+                                        <input type = "text" class="form-control" th:field = "*{lastName}" placeholder="Last name" id="userA.LastName">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class ="form-group">
-                                <div class = "col-3 mx-auto">
-                                <strong><label for = "userA.Age">Age</label> </strong>
-                                <input type = "number" class="form-control" th:field = "*{age}" placeholder="Age"  id="userA.Age">
+                                <div class ="form-group">
+                                    <div class = "col-3 mx-auto">
+                                        <strong><label for = "userA.Age">Age</label> </strong>
+                                        <input type = "number" class="form-control" th:field = "*{age}" placeholder="Age"  id="userA.Age">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class = "form-group">
-                                <div class = "col-3 mx-auto">
-                                <strong><label for = "userA.Email">Email </label> </strong>
-                                <input type = "text" class="form-control" th:field = "*{email}" placeholder="Email" id="userA.Email">
+                                <div class = "form-group">
+                                    <div class = "col-3 mx-auto">
+                                        <strong><label for = "userA.Email">Email </label> </strong>
+                                        <input type = "text" class="form-control" th:field = "*{email}" placeholder="Email" id="userA.Email">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class = "form-group">
-                                <div class = "col-3 mx-auto">
-                                <strong><label for = "userA.Password">Password </label> </strong>
-                                <input type required = "password" class="form-control" th:field = "*{password}" placeholder="Password" id="userA.Password">
+                                <div class = "form-group">
+                                    <div class = "col-3 mx-auto">
+                                        <strong><label for = "userA.Password">Password </label> </strong>
+                                        <input type required = "password" class="form-control" th:field = "*{password}" placeholder="Password" id="userA.Password">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class = "form-group">
-                                <div class = "col-3 mx-auto">
-                                <strong><label>Roles</label> </strong>
-                                <select multiple class="form-control " size = "1" id = "A.ROLES" name = "roles">
-                                    <option th:object="${role_admin}" th:text="${role_admin.name}" th:value="${role_admin.id}" ></option>
-                                    <option th:object="${role_user}" th:text="${role_user.name}" th:value="${role_user.id}" ></option>
-                                </select>
+                                <div class = "form-group">
+                                    <div class = "col-3 mx-auto">
+                                        <strong><label>Roles</label> </strong>
+                                        <select multiple class="form-control " size = "1" id = "A.ROLES" name = "roles">
+                                            <option>USER</option>
+                                            <option >ADMIN</option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <button type="submit" class="btn btn-success">Add user</button>
-                        </form>
-                        <br>
+                                <button type="submit" class="btn btn-success">Add user</button>
+                            </form>
+                            <br>
+                        </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="someDefaultModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                </div>
+
+                <div class="modal-footer">
+                </div>
+
             </div>
         </div>
     </div>
 </div>
-    </div>
-</div>
-<script type="text/javascript" src="/adminTab.js"></script>
+<script type="text/javascript" src="/newAdminTab.js"></script>
 <script type="text/javascript" src="/roles.js"></script>
-
 </body>
-</html>
