@@ -12,9 +12,9 @@
 <! Панелька вверху>
 <nav class="navbar navbar-dark bg-dark">
    <span class="navbar-text text-white">
-       <strong> <td th:text="${admin.getUsername()}"></td> </strong>
+        <strong> <span id ="current_user"></span> </strong>
      with roles:
-       <td th:each="role:${admin.getRoles()}" th:text="${role.toString()}+' '"></td>
+        <span id="roles"></span>
    </span>
     <a class = "nav-link text-muted" th:href="@{/logout}">Logout </a>
 </nav>
@@ -85,8 +85,7 @@
 
                             <! Модалка эдита>
                             <div class = "editForm">
-                                <form th:action="@{/api/id}" method="PATCH" id="body">
-                                    <div class = "modal fade" id="editModal"  tabindex="-1">
+                                <div class = "modal fade" id="editModal"  tabindex="-1">
                                         <div class = "modal-dialog">
                                             <div class = "modal-content">
                                                 <div class = "modal-header">
@@ -121,7 +120,7 @@
                                                     </div>
                                                     <div class = "form-group ">
                                                         <strong><label>Roles</label> </strong>
-                                                        <select class="custom-select" id = "ROLES" name = "roles" multiple size="2">
+                                                        <select class="custom-select" id = "editRoles" name = "roles" multiple size="2">
                                                             <option>USER</option>
                                                             <option>ADMIN</option>
                                                         </select>
@@ -129,23 +128,20 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal" id="editClose">Close</button>
-                                                    <button type="submit" class="btn btn-primary editSuccess">Edit</button>
+                                                    <button type="submit" class="btn btn-primary editSuccess" >Edit</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </form>
+
 
                             </div>
-                            <td> <button type="button" class="btn btn-danger"
-                                         th:data-target ="${'#delete' + user.getId()}" data-toggle="modal" >Delete
-                            </button> </td>
+
 
                             <! Модалка Делита>
-                            <div class = "modal fade" th:id = "${'delete' + user.getId()}" tabindex="-1">
-                                <form th:action="@{/admin/delete/{id}(id=${user.getId()})}"
-                                      th:object="${user}" th:method="delete">
-                                    <div class = "modal-dialog">
+                            <div class = "deleteForm">
+                            <div class = "modal fade" id="deleteModal"  tabindex="-1">
+                                <div class = "modal-dialog">
                                         <div class = "modal-content">
                                             <div class = "modal-header">
                                                 <h5>Delete user</h5>
@@ -154,39 +150,40 @@
                                             </div>
                                             <div class ="modal-body mx-auto text-center">
                                                 <div class = "form-group ">
-                                                    <strong><label for = "userd.id">Id</label> </strong>
-                                                    <input type = "number" class="form-control" th:value = "${user.getId()}" id="userd.id" name="id" readonly>
+                                                    <strong><label for ="idDelete">Id</label> </strong>
+                                                    <input type = "number" class="form-control"  id="idDelete" name="id" readonly>
                                                 </div>
                                                 <div class = "form-group ">
-                                                    <strong><label for = "userd.FirstName">First Name </label> </strong>
-                                                    <input type = "text" class="form-control" th:value = "${user.getFirstName()}" id="userd.FirstName" name="firstName" readonly>
+                                                    <strong><label for = "firstNameDelete">First Name </label> </strong>
+                                                    <input type = "text" class="form-control"  id="firstNameDelete" name="firstName" readonly>
                                                 </div>
                                                 <div class = "form-group ">
-                                                    <strong><label for = "userd.LastName">Last Name </label> </strong>
-                                                    <input type = "text" class="form-control" th:value = "${user.getLastName()}" id="userd.LastName" name="lastName" readonly>
+                                                    <strong><label for = "lastnameDelete">Last Name </label> </strong>
+                                                    <input type = "text" class="form-control"  id="lastnameDelete" name="lastName" readonly>
                                                 </div>
                                                 <div class ="form-group ">
-                                                    <strong><label for = "userd.Age">Age</label> </strong>
-                                                    <input type = "number" class="form-control" th:value = "${user.getAge()}" id="userd.Age" name="age" readonly>
+                                                    <strong><label for = "ageDelete">Age</label> </strong>
+                                                    <input type = "number" class="form-control"  id="ageDelete" name="age" readonly>
                                                 </div>
                                                 <div class = "form-group ">
-                                                    <strong><label for = "userd.Email">Email </label> </strong>
-                                                    <input type = "text" class="form-control" th:value = "${user.getEmail()}" id="userd.Email" name="email" readonly>
+                                                    <strong><label for = "emailDelete">Email </label> </strong>
+                                                    <input type = "text" class="form-control"  id="emailDelete" name="email" readonly>
                                                 </div>
                                                 <div class = "form-group ">
-                                                    <strong><label>Roles</label> </strong>
-                                                    <select multiple class="form-control " size = "1" id = "D.ROLES" name = "roles" readonly >
-                                                        <option th:each= "role:${user.getRoles()}"  th:text="${role.getName()}" readonly ></option>
+                                                    <strong><label>rolesDelete</label> </strong>
+                                                    <select multiple class="form-control " size = "1" id = "rolesDelete" name = "roles" readonly >
+                                                        <option readonly >ADMIN</option>
+                                                        <option readonly>USER</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="deleteClose">Close</button>
+                                                <button type="submit" class="btn btn-danger deleteSuccess"  >Delete</button>
                                             </div>
                                         </div>
                                     </div>
-                                </form>
+                            </div>
                             </div>
                             </tr>
                             </tbody>
@@ -282,6 +279,7 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="/userInfoAdminVer.js"></script>
 <script type="text/javascript" src="/newAdminTab.js"></script>
 <script type="text/javascript" src="/roles.js"></script>
 </body>

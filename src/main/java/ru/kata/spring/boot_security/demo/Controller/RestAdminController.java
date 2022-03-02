@@ -53,7 +53,7 @@ public class RestAdminController {
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/edit")
     public ResponseEntity<User> patchUser(@RequestBody User user, @RequestParam(required = false, name = "selectedRoles") String[] selectedRoles) {
         HashSet<Role> editRoles = new HashSet<>();
         for (String s : selectedRoles) {
@@ -70,8 +70,8 @@ public class RestAdminController {
     }
 
 
-    @DeleteMapping ("/{id}")
-    public void delete(@PathVariable("id") Long id) {
+    @DeleteMapping ("/delete")
+    public void delete(@RequestParam(required = true, name = "deleteId") Long id) {
         userService.deleteUser(id);
     }
 
