@@ -11,8 +11,7 @@ const userFetchService = {
     },
 
     findAllUsers: async () => await fetch('api/users'),
-    //findOneUser: async (id) => await fetch(`api/users/${id}`),
-    addNewUser: async (user) => await fetch('api/users', {method: 'POST', headers: userFetchService.head, body: JSON.stringify(user)}),
+    addNewUser: async (user, addRoles) => await fetch(`api/?selectedRoles=` + addRoles, {method: 'POST', headers: userFetchService.head, body: JSON.stringify(user)}),
     updateUser: async (user, editRoles) => await fetch(`api/edit/?selectedRoles=` + editRoles, {method: 'PATCH', headers: userFetchService.head, body: JSON.stringify(user)}),
     deleteUser: async (deleteId) => await fetch(`api/delete/?deleteId=` + deleteId , {method: 'DELETE', headers: userFetchService.head})
 }
@@ -44,7 +43,9 @@ async function getTableWithUsers() {
             })
         })
 }
-    document.onclick = function (event) {
+    //кривой вариант для обращения к элементам вне html файла
+    document.onclick = function (event){
+    //вызов модалки эдита
         if ($(event.target).hasClass('editBtn')) {
             event.preventDefault();
             let href = $(event.target).attr("href");
@@ -60,6 +61,7 @@ async function getTableWithUsers() {
 
             $('.editForm #editModal').modal();
         }
+        //вызов модалки делита
 
         if ($(event.target).hasClass('deleteBtn')) {
             event.preventDefault();
@@ -78,6 +80,7 @@ async function getTableWithUsers() {
         }
     }
     $( document ).ready( function () {
+        //кнопка эдит
         $('.editSuccess').on('click', async function (e) {
             e.preventDefault();
 
@@ -97,6 +100,7 @@ async function getTableWithUsers() {
             $(".editForm #editClose").click()
             await getTableWithUsers()
         })
+            //кнопка делит
 
         $('.deleteSuccess').on('click', async function (e) {
             e.preventDefault();
@@ -106,6 +110,29 @@ async function getTableWithUsers() {
             $(".deleteForm #deleteClose").click()
             await getTableWithUsers()
 
+        })
+        //Добавление + перезагрузка полей
+        $('.addSuccess').on('click', async function (e) {
+
+            let user = {
+                firstName: $('#addFirstName').val(),
+                lastName: $('#addLastName').val(),
+                age: $('#addAge').val(),
+                email: $('#addEmail').val(),
+                password: $('#addPassword').val(),
+            }
+
+            var addRoles = $('#rolesAdd option:selected')
+                .toArray().map(item => item.text);
+
+            await userFetchService.addNewUser(user, addRoles)
+             $('#addFirstName').val("")
+                 $('#addLastName').val(""),
+                 $('#addAge').val(""),
+                 $('#addEmail').val(""),
+                 $('#addPassword').val(""),
+            await getTableWithUsers()
+            $(" #usersBtn").click()
         })
     })
 

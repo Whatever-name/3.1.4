@@ -42,10 +42,10 @@
                     <h2> <p class="text-xl">Admin panel</p> </h2>
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" href="#Users">Users Table</a>
+                            <a class="nav-link active" data-toggle="tab" href="#Users" id="usersBtn">Users Table</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#Add">New user</a>
+                            <a class="nav-link" data-toggle="tab" href="#Add" id="addBtn">New user</a>
                         </li>
                     </ul>
                 </div>
@@ -207,50 +207,48 @@
                     </div>
                     <div class = "row">
                         <div class = "col-11 mx-auto text-center border align-items-center bg-white">
-                            <form th:action="@{/admin/add}"
-                                  th:object="${addUser}" method="post">
 
-                                <div class = "form-group ">
+                            <div class = "form-group ">
                                     <div class = "col-3 mx-auto">
-                                        <strong><label for = "userA.FirstName">First Name </label> </strong>
-                                        <input type = "text" class="form-control" th:field = "*{firstName}" placeholder="First name" id="userA.FirstName">
+                                        <strong><label for = "addFirstName">First Name </label> </strong>
+                                        <input type = "text" class="form-control"  placeholder="First name" id="addFirstName">
                                     </div>
                                 </div>
                                 <div class = "form-group">
                                     <div class = "col-3 mx-auto">
-                                        <strong><label for = "userA.LastName">Last Name </label> </strong>
-                                        <input type = "text" class="form-control" th:field = "*{lastName}" placeholder="Last name" id="userA.LastName">
+                                        <strong><label for = "addLastName">Last Name </label> </strong>
+                                        <input type = "text" class="form-control"  placeholder="Lastname" id="addLastName">
                                     </div>
                                 </div>
                                 <div class ="form-group">
                                     <div class = "col-3 mx-auto">
-                                        <strong><label for = "userA.Age">Age</label> </strong>
-                                        <input type = "number" class="form-control" th:field = "*{age}" placeholder="Age"  id="userA.Age">
+                                        <strong><label for = "addAge">Age</label> </strong>
+                                        <input type = "number" class="form-control"  placeholder="Age"  id="addAge">
                                     </div>
                                 </div>
                                 <div class = "form-group">
                                     <div class = "col-3 mx-auto">
-                                        <strong><label for = "userA.Email">Email </label> </strong>
-                                        <input type = "text" class="form-control" th:field = "*{email}" placeholder="Email" id="userA.Email">
+                                        <strong><label for = "addEmail">Email </label> </strong>
+                                        <input type = "text" class="form-control"  placeholder="Email" id="addEmail">
                                     </div>
                                 </div>
                                 <div class = "form-group">
                                     <div class = "col-3 mx-auto">
-                                        <strong><label for = "userA.Password">Password </label> </strong>
-                                        <input type required = "password" class="form-control" th:field = "*{password}" placeholder="Password" id="userA.Password">
+                                        <strong><label for = "addPassword">Password </label> </strong>
+                                        <input type required = "password" class="form-control"  placeholder="Password" id="addPassword">
                                     </div>
                                 </div>
                                 <div class = "form-group">
                                     <div class = "col-3 mx-auto">
                                         <strong><label>Roles</label> </strong>
-                                        <select multiple class="form-control " size = "1" id = "A.ROLES" name = "roles">
+                                        <select multiple class="form-control " size = "1" id = "rolesAdd" name = "roles" >
+                                            <option>ADMIN</option>
                                             <option>USER</option>
-                                            <option >ADMIN</option>
                                         </select>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-success">Add user</button>
-                            </form>
+                                <button type="submit" class="btn btn-success addSuccess">Add user</button>
+
                             <br>
                         </div>
                     </div>
@@ -258,26 +256,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="someDefaultModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
 
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-                <div class="modal-body">
-                </div>
-
-                <div class="modal-footer">
-                </div>
-
-            </div>
-        </div>
-    </div>
 </div>
 <script type="text/javascript" src="/userInfoAdminVer.js"></script>
 <script type="text/javascript" src="/newAdminTab.js"></script>

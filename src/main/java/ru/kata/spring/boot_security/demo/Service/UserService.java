@@ -6,7 +6,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.Dao.RoleRepository;
 import ru.kata.spring.boot_security.demo.Dao.UserRepository;
+import ru.kata.spring.boot_security.demo.Model.Role;
 import ru.kata.spring.boot_security.demo.Model.User;
+
+import javax.annotation.PostConstruct;
+import java.util.HashSet;
 import java.util.List;
 
 
@@ -23,7 +27,7 @@ public class UserService {
 
     @Autowired
     UserRepository userRepository;
-/*
+
     @PostConstruct
     private void postConstruct() {
         Role adminRole = new Role("ROLE_ADMIN");
@@ -42,7 +46,7 @@ public class UserService {
         addUser(admin);
         addUser(normalUser);
         }
-        */
+
 
 
 
